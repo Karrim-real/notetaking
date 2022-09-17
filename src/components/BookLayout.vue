@@ -30,7 +30,7 @@ export default {
     data(){
         return {
           
-          url: "http://localhost:3000/books/",
+          url: "https://inquisitive-bienenstitch-f0660d.netlify.app/books/",
           book : null
         }
     }, 

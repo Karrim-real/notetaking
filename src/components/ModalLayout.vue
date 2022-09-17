@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       books: [],
-      url: "http://localhost:3000/books"
+      url: "https://inquisitive-bienenstitch-f0660d.netlify.app/books"
     }
   },
   mounted(){

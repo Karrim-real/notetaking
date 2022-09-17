@@ -54,7 +54,7 @@ export default {
     data(){
         return{
             favouriteBook : [],
-            url: 'http://localhost:3000/books',
+            url: 'https://inquisitive-bienenstitch-f0660d.netlify.app/books',
         }
     },
     components:{
