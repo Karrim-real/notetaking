@@ -1,16 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <BoardLayout/>
+  <!-- <AddBook /> -->
+ <!-- <ModalLayout  /> -->
+
+ <!-- <h4>{{ title }}</h4> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import ModalLayout from './components/ModalLayout'
+import BoardLayout from './components/BoardLayout.vue'
+// import AddBook from './components/AddBook.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components : {
+     BoardLayout,
+    //  ModalLayout ,
+    //  AddBook,
+     },
+
+  methods: {
+
   }
+  
 }
 </script>
 

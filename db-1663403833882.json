@@ -1,0 +1,94 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "The Good Sphepard",
+      "author": "Frank Theor",
+      "pages": 200,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": false,
+      "image": "1.jpeg"
+    },
+    {
+      "id": 2,
+      "title": "Man and The Son",
+      "author": "Ebenezer Obey",
+      "pages": 100,
+      "description": "moren is thr eks jsj jsjdj sjhsdn",
+      "isFavourite": true,
+      "image": "2.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "Read your Mind",
+      "author": "Jpseph Jole",
+      "pages": 180,
+      "description": "Zeon the melon is thhe mllloe of the world",
+      "isFavourite": true,
+      "image": "3.jpeg"
+    },
+    {
+      "id": 4,
+      "title": "Man in the Nation",
+      "author": "Gorel Thainola",
+      "pages": 130,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "4.jpeg"
+    },
+    {
+      "id": 5,
+      "title": "Think Big",
+      "author": "Semola Molae",
+      "pages": 90,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "5.jpeg"
+    },
+    {
+      "id": 6,
+      "title": "In th Bad Land",
+      "author": "Samuel Orimalade",
+      "pages": 67,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "6.jpeg"
+    },
+    {
+      "id": 7,
+      "title": "Your own Thought",
+      "author": "Mike Ibitokun",
+      "pages": 89,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "7.jpeg"
+    },
+    {
+      "id": 8,
+      "title": "Without the relms",
+      "author": "Wealm offodile",
+      "pages": 20,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "8.jpeg"
+    },
+    {
+      "id": 9,
+      "title": "Ogun Ajakaye",
+      "author": "Solomon Waleoja",
+      "pages": 400,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "9.jpeg"
+    },
+    {
+      "id": 10,
+      "title": "48 Leadership skill",
+      "author": "Mike Igbalade",
+      "pages": 400,
+      "description": "lorem alegned is a mide of ths sgs",
+      "isFavourite": true,
+      "image": "10.jpeg"
+    }
+  ]
+}
