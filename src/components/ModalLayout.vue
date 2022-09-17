@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    
     <div v-if="books">
       <div class="card" v-for="item in books" :key="item.id">
             <div class="card-body">
@@ -50,10 +51,11 @@ export default {
   data() {
     return {
       books: [],
-      url: "https://inquisitive-bienenstitch-f0660d.netlify.app/books"
+      url: process.env.VUE_APP_BASEURL
     }
   },
   mounted(){
+    console.log(process.env.VUE_APP_BASEURL);
     fetch(this.url).then(res =>{
     res.json().then(data => this.books = data)
     }).catch(err => console.log(err))

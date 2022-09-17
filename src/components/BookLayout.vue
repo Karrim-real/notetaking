@@ -30,7 +30,7 @@ export default {
     data(){
         return {
           
-          url: "https://inquisitive-bienenstitch-f0660d.netlify.app/books/",
+          url: process.env.VUE_APP_BASEURL,
           book : null
         }
     }, 
