@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted(){
-    console.log(process.env.VUE_APP_BASEURL, '[[[s');
+    console.log(process.env.VUE_APP_BASEURL);
     // fetch(this.url).then(res =>{
     // res.json().then(data => this.books = data.data)
     // }).catch(err => console.log(err))
