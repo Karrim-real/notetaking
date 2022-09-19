@@ -9,7 +9,7 @@
             <div class="card-body">
 
               <div class="card-images">
-                <img :src="require('../assets/images/'+item.image)" class="card-image" :alt="item.title" >
+                <img :src="item.image" class="card-image" :alt="item.title" >
               </div>
               <div class="card-title">
                 <h3>{{item.title}}</h3>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'FavouriteLayout',
     data(){
@@ -62,13 +63,25 @@ export default {
     },
     mounted(){
         
-        fetch(this.url)
-        .then(res => res.json().then(data => this.favouriteBook = data))
-        .catch(err => console.log(err.message))
+        try {
+          axios.get(this.url).then(res => this.favouriteBook = res.data.data).catch(err => console.log(err))
+        } catch (error) {
+          throw error.message
+        }
+        // fetch(this.url)
+        // .then(res => res.json().then(data => this.favouriteBook = data.data))
+        // .catch(err => console.log(err.message))
     },
 
     methods:{
         removeFavourite(item){
+          try {
+              axios.put(this.url+item.id, {
+                isFavourite : this.isFavourite = true
+              })
+          } catch (error) {
+            throw error.message
+          }
             item.isFavourite = true 
         }
     },

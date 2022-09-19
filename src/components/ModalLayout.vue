@@ -1,12 +1,13 @@
 <template>
   <div class="main">
-    
     <div v-if="books">
+    <!-- {{books}} -->
+
       <div class="card" v-for="item in books" :key="item.id">
             <div class="card-body">
 
               <div class="card-images">
-                <img :src="require('../assets/images/'+item.image)" class="card-image" :alt="item.title" >
+                <img :src="item.image" class="card-image" :alt="item.title" >
               </div>
               <div class="card-title">
                 <h3>{{item.title}}</h3>
@@ -46,6 +47,7 @@
 </template>
 
 <script>
+const axios = require('axios')
 export default {
   name: 'ModalLayout',
   data() {
@@ -55,19 +57,38 @@ export default {
     }
   },
   mounted(){
-    console.log(process.env.VUE_APP_BASEURL);
-    fetch(this.url).then(res =>{
-    res.json().then(data => this.books = data)
-    }).catch(err => console.log(err))
+    // console.log(process.env.VUE_APP_BASEURL);
+    // fetch(this.url).then(res =>{
+    // res.json().then(data => this.books = data.data)
+    // }).catch(err => console.log(err))
+
+    axios.get(this.url).then((response) => {
+        this.books = response.data.data
+      })
+    // console.log(this.books);
   },
   methods: {
     addFavourite(item){
-        
+        console.log(item.id);
+        try {
+            axios.put(this.url+item.id, {
+              isFavourite : !item.isFavourite
+            })
+        } catch (error) {
+          throw error.message
+        }
         item.isFavourite = false
 
     },
     removeFavourite(item){
         
+        try {
+            axios.put(this.url+item.id, {
+              isFavourite : true
+            })
+        } catch (error) {
+          throw error.message
+        }
         item.isFavourite = true
 
     }, 
