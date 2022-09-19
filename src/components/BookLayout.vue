@@ -57,7 +57,7 @@ export default {
       addFavourite(item){
         console.log(item.id);
         try {
-            axios.put(this.url+item.id, {
+            axios.put(this.url+'/'+item.id, {
               isFavourite : !item.isFavourite
             })
         } catch (error) {
@@ -69,7 +69,7 @@ export default {
     removeFavourite(item){
         
         try {
-            axios.put(this.url+item.id, {
+            axios.put(this.url+'/'+item.id, {
               isFavourite : true
             })
         } catch (error) {
@@ -84,7 +84,7 @@ export default {
 
       //Using Axios
       try {
-          axios.get(this.url+this.id)
+          axios.get(this.url+'/'+this.id)
           .then(res => this.book = res.data.data)
           .catch(err => err.message)
       } catch (error) {

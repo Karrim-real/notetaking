@@ -76,7 +76,7 @@ export default {
     methods:{
         removeFavourite(item){
           try {
-              axios.put(this.url+item.id, {
+              axios.put(this.url+'/'+item.id, {
                 isFavourite : this.isFavourite = true
               })
           } catch (error) {
