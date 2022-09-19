@@ -78,7 +78,6 @@ export default {
         item.isFavourite = true
 
     }, 
-    
     },
     mounted(){
       // console.log(this.url+this.id);

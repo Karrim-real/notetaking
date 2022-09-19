@@ -89,6 +89,7 @@ export default {
         } catch (error) {
           throw error.message
         }
+
         item.isFavourite = true
 
     }, 
