@@ -34,7 +34,7 @@
       </div>
     </div>
     <div v-else>
-      <h2>No Book Found with this ID</h2>
+      <h2>Loaing book ...</h2>
     </div>
     <!-- {{book}} -->
 
