@@ -19,10 +19,10 @@
 
        <div class="card-button">
                   <span v-if="book.isFavourite">
-                <button type="button" class="add-favourite" @click="addFavourite(book)">Add to Favourite</button>
+                <button type="button" class="add-favourite" @click="BookFavourite(book)">Add to Favourite</button>
                   </span>
                   <span v-else>
-                      <button type="button" class="remove-favourite" @click="removeFavourite(book)" >
+                      <button type="button" class="remove-favourite" @click="BookFavourite(book)" >
                   Remove from Favourite
                       </button>
                   </span>
@@ -54,30 +54,18 @@ export default {
         }
     }, 
     methods: {
-      addFavourite(item){
+       async BookFavourite(item){
         console.log(item.id);
         try {
-            axios.put(this.url+'/'+item.id, {
+            await axios.put(this.url+'/'+item.id, {
               isFavourite : !item.isFavourite
-            })
+            }).then(res => console.log(res))
         } catch (error) {
           throw error.message
         }
-        item.isFavourite = false
-
+        item.isFavourite =  !item.isFavourite
     },
-    removeFavourite(item){
-        
-        try {
-            axios.put(this.url+'/'+item.id, {
-              isFavourite : true
-            })
-        } catch (error) {
-          throw error.message
-        }
-        item.isFavourite = true
-
-    }, 
+    
     },
     mounted(){
       // console.log(this.url+this.id);

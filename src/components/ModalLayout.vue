@@ -28,13 +28,14 @@
 
               <div class="card-button">
                   <span v-if="item.isFavourite">
-                <button type="button" class="add-favourite" @click="addFavourite(item)">Add to Favourite</button>
+                <button type="button" class="add-favourite" @click="BookFavourite(item)">Add to Favourite</button>
                   </span>
                   <span v-else>
-                      <button type="button" class="remove-favourite" @click="removeFavourite(item)" >
+                      <button type="button" class="remove-favourite" @click="BookFavourite(item)" >
                   Remove from Favourite
                       </button>
                   </span>
+                  
               
               </div>
             </div>
@@ -63,36 +64,23 @@ export default {
     // }).catch(err => console.log(err))
 
     axios.get(this.url).then((response) => {
-        this.books = response.data.data
+        console.log(this.books = response.data.data);
       })
     // console.log(this.books);
   },
   methods: {
-    addFavourite(item){
+   async BookFavourite(item){
         console.log(item.id);
         try {
-            axios.put(this.url+'/'+item.id, {
+           await axios.put(this.url+'/'+item.id, {
               isFavourite : !item.isFavourite
-            })
+            }).then(res => console.log(res))
         } catch (error) {
           throw error.message
         }
-        item.isFavourite = false
-
+        item.isFavourite =  !item.isFavourite
     },
-    removeFavourite(item){
-        
-        try {
-            axios.put(this.url+'/'+item.id, {
-              isFavourite : true
-            })
-        } catch (error) {
-          throw error.message
-        }
-
-        item.isFavourite = true
-
-    }, 
+  
    
   }
 };
