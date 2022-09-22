@@ -7,8 +7,9 @@
           <li><router-link :to="{name: 'home'}">Home</router-link></li>
           <li><router-link :to="{name: 'addbook'}">Add Book</router-link> </li>
           <li><router-link :to="{name: 'favourites'}">Favourite Books</router-link> </li>
-          <!-- <li><router-link :to="{name: 'BookLayout',params:1}">Book 1</router-link></li> -->
           <li> <router-link :to="{name: 'about'}">About Us</router-link></li>
+          <li> <router-link :to="{name: 'login'}">Login</router-link></li>
+          <li> <router-link :to="{name: 'signup'}">Sign Up</router-link></li>
         </ul>
       </nav>
     </div>

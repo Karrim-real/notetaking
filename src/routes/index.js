@@ -5,6 +5,8 @@ import BookLayout from '../components/BookLayout'
 import AboutLayout from '../components/AboutLayout'
 import FavouriteLayout from '../components/FavouriteBooks'
 import NotFound from '../components/NotFound'
+import LoginLayout from '../components/LoginLayout'
+import SignupLayout from '../components/SignupLayout'
 
 const routes = [
     {path: '/', name: 'home', component: ModalLayout},
@@ -12,7 +14,10 @@ const routes = [
     {path: '/about', name:'about', component: AboutLayout},
     {path: '/favourites', name:'favourites', component: FavouriteLayout},
     {path: '/book/:id', name: 'BookLayout', component: BookLayout, props: true},
-    {path: '/:catchAll(.*)', name: 'NotFound', component: NotFound},
+    {path: '/signup', name:'signup', component: SignupLayout},
+    {path: '/login', name:'login', component: LoginLayout},
+
+    {path: '/*', name: 'NotFound', component: NotFound},
 ]
 const router = createRouter({
     history:createWebHistory(),
