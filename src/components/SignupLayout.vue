@@ -2,35 +2,37 @@
   <!-- <main> -->
     <div class="myform">
         <div class="login-text">
-            Creat an Account
+            <h2 v-if="errors">
+                <ul v-for="error in errors" :key="error.name">
+                    <li>{{error}}</li>
+                </ul>
+            </h2>
+            <h2 v-else>Creat an Account</h2>
         </div>
         <div class="login-form">
             <form  method="post" @submit.prevent="Register">
                 <div class="username">
-                    <label for="username">Name</label>
-                    <input type="text" class="name" placeholder="Enter your name" v-model="signupData.name">
+                    <label for="name">Name</label>
+                    <input type="text" class="name" name="user" placeholder="Enter your name" v-model="signupData.name">
                 </div>
 
                 <div class="username">
                     <label for="username">Email</label>
-                    <input type="text" class="email" placeholder="Enter your Email" v-model="signupData.email">
+                    <input type="email" class="email" name="" placeholder="Enter your Email" v-model="signupData.email">
                 </div>
 
-                <div class="username">
-                    <label for="username">Username</label>
-                    <input type="text" class="username" placeholder="Enter your username" v-model="signupData.username">
-                </div>
+                
                  <div class="password">
                     <label for="password">Password</label>
-                    <input type="password" class="password"  v-model="signupData.password">
+                    <input type="password" class="password" name="password" v-model="signupData.password">
                 </div>
 
                  <div class="password">
                     <label for="password"> Confrim Password</label>
-                    <input type="password" class="password"  v-model="signupData.passwordConfirmation">
+                    <input type="password" class="password" name="password_confirmation" v-model="signupData.password_confirmation">
                 </div>
                 <div class="submitbtn">
-                    <button class="login-button">Register</button>
+                    <button class="login-button" type="submit">Register</button>
                 </div>
             </form>
         </div>
@@ -42,25 +44,39 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data(){
         return {
             signupData : {
-            
             name: '',
             email: '',
-            username: '',
             password: '',
-            passwordConfirmation : ''
+            password_confirmation : ''
 
-            }
+            },
+            authurl: process.env.VUE_APP_AUTHURL,
+            errors: '',
             
         }
     },
     methods: {
-        Register(){
+        async Register(){
             console.log(this.signupData);
-            console.log('Register Button Click');
+            // console.log(this.authurl);
+            // console.log('Register Button Click');
+            try {
+                await axios.post(this.authurl+'/signup', this.signupData)
+                .then(response =>{
+                    if(response.status === 200){
+                        this.$router.push({name : 'home'})
+                    }
+                })
+                .catch(err => this.errors = err.response.data.errors)
+                
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
