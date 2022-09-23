@@ -40,6 +40,7 @@ export default {
             },
             errors : '',
             authurl: process.env.VUE_APP_AUTHURL,
+            authentication: ''
 
         }
     },
@@ -52,10 +53,12 @@ export default {
                this.errors = 'Please Enter Username or Password';
             }else{
                 try {
-                   await axios.post(this.authurl+'/login', this.formdatas)
+                   await axios.post(this.authurl+'/auth/login', this.formdatas)
                 .then(response =>{ 
                         if(response.data.statusCode === 200){
                             this.$router.push({name: 'favourites'});
+                            console.log(response.data);
+                            // this.authentication.push({data : response})
                         }
                     })
                 .catch(err => this.errors = err.response.data.message)

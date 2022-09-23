@@ -7,6 +7,7 @@ import FavouriteLayout from '../components/FavouriteBooks'
 import NotFound from '../components/NotFound'
 import LoginLayout from '../components/LoginLayout'
 import SignupLayout from '../components/SignupLayout'
+import ProfileLayout from '../components/ProfileLayout'
 
 const routes = [
     {path: '/', name: 'home', component: ModalLayout},
@@ -16,7 +17,7 @@ const routes = [
     {path: '/book/:id', name: 'BookLayout', component: BookLayout, props: true},
     {path: '/signup', name:'signup', component: SignupLayout},
     {path: '/login', name:'login', component: LoginLayout},
-
+    {path: '/profile', name:'profile', component: ProfileLayout},
     {path: '/*', name: 'NotFound', component: NotFound},
 ]
 const router = createRouter({

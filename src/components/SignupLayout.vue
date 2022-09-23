@@ -66,7 +66,7 @@ export default {
             // console.log(this.authurl);
             // console.log('Register Button Click');
             try {
-                await axios.post(this.authurl+'/signup', this.signupData)
+                await axios.post(this.authurl+'/auth/signup', this.signupData)
                 .then(response =>{
                     if(response.status === 200){
                         this.$router.push({name : 'home'})
