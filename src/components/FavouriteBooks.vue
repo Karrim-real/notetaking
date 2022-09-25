@@ -7,37 +7,29 @@
     <div v-if="favouriteBook">
       <div class="card" v-for="item in favourite" :key="item.id">
             <div class="card-body">
-
+              <!-- {{item}} -->
               <div class="card-images">
-                <img :src="item.image" class="card-image" :alt="item.title" >
+                <img :src="item.books.image" class="card-image" :alt="item.books.title" >
               </div>
               <div class="card-title">
-                <h3>{{item.title}}</h3>
+                <h3>{{item.books.title}}</h3>
               </div>
               <div class="card-desc">
                 <p>
-                  {{item.description}}
+                  {{item.books.description}}
                 </p>
               </div>
               <div class="cardauthor">
-                <h5>Author:{{item.author}}</h5>
+                <h5>Author:{{item.books.author}}</h5>
                 <span class="pages">
-                  <h6>Page: {{item.pages}}</h6>
+                  <h6>Page: {{item.books.pages}}</h6>
                 </span>
               </div>
-            <router-link :to="{name: 'BookLayout', params: {id: item.id}}"> View More
+            <router-link :to="{name: 'BookLayout', params: {id: item.books.id}}"> View More
               </router-link>
 
               <div class="card-button">
-                  <span v-if="item.isFavourite">
-                <button type="button" class="add-favourite" @click="BookFavourite(item)">Add to Favourite</button>
-                  </span>
-                  <span v-else>
-                      <button type="button" class="remove-favourite" @click="BookFavourite(item)" >
-                  Remove from Favourite
-                      </button>
-                  </span>
-              
+                      <button type="button" class="remove-favourite" @click="RemoveFavourite(item)"> Remove from favourite </button>
               </div>
             </div>
       </div>
@@ -55,16 +47,18 @@ export default {
     data(){
         return{
             favouriteBook : [],
-            url: process.env.VUE_APP_BASEURL,
+            removeBkid: '',
+            url: process.env.VUE_APP_AUTHURL,
         }
     },
     components:{
 
     },
     mounted(){
-        
         try {
-          axios.get(this.url).then(res => this.favouriteBook = res.data.data).catch(err => console.log(err))
+          axios.get(this.url+"/favourite")
+          .then(res => console.log(this.favouriteBook = res.data.books))
+          .catch(err => console.log(err))
         } catch (error) {
           throw error.message
         }
@@ -74,23 +68,23 @@ export default {
     },
 
     methods:{
-         async BookFavourite(item){
-        console.log(item.id);
+         async RemoveFavourite(item){
+        // this.removeBkid = 29;
         try {
-            await axios.put(this.url+'/'+item.id, {
-              isFavourite : !item.isFavourite
-            }).then(res => console.log(res))
+            await axios.delete(this.url+'/favourite/'+item.id)
+            .then(res => item.id =  !res.id)
+            .catch(err => console.log(err))
         } catch (error) {
           throw error.message
         }
-        item.isFavourite =  !item.isFavourite
+        item.id =  !item.id
     },
 
     },
 
     computed: {
         favourite(){
-            return this.favouriteBook.filter(item => !item.isFavourite)
+            return this.favouriteBook.filter(item => item.id)
         },
         
 

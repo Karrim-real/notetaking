@@ -2,6 +2,8 @@
   <div class="main">
     <div v-if="books">
     <!-- {{books}} -->
+    <h3 v-if="successmsg">{{successmsg}}</h3>
+      <h3 v-if="errors" class="error">{{errors}}</h3>
 
       <div class="card" v-for="item in books" :key="item.id">
             <div class="card-body">
@@ -54,7 +56,12 @@ export default {
   data() {
     return {
       books: [],
-      url: process.env.VUE_APP_BASEURL
+      book_id : '',
+      errors: '',
+      successmsg : '',
+
+      url: process.env.VUE_APP_BASEURL,
+      favurl: process.env.VUE_APP_AUTHURL
     }
   },
   mounted(){
@@ -70,15 +77,18 @@ export default {
   },
   methods: {
    async BookFavourite(item){
-        console.log(item.id);
+        // console.log(this.favurl+"/favouritebook");
+
         try {
-           await axios.put(this.url+'/'+item.id, {
-              isFavourite : !item.isFavourite
-            }).then(res => console.log(res))
+           await axios.post(this.favurl+"/favouritebook",{
+            'book_id': this.book_id = item.id
+           }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : console.log(this.errors = res.data.message))
+            .catch(err => console.log(err))
         } catch (error) {
           throw error.message
         }
-        item.isFavourite =  !item.isFavourite
+        console.log(this.book_id);
+        // item.isFavourite =  !item.isFavourite
     },
   
    
@@ -89,4 +99,5 @@ export default {
 <style  scoped>
 
 @import url('../assets/css/style.css');
+
 </style>
