@@ -8,16 +8,16 @@
           
           <li> <router-link :to="{name: 'about'}">About Us</router-link></li>
           
-          <span v-if="checkAuth">
+          <!-- <span v-if="checkAuth"> -->
             <li><router-link :to="{name: 'addbook'}">Add Book</router-link> </li>
           <li><router-link :to="{name: 'favourites'}">Favourite Books</router-link> </li>
           <li> <router-link :to="{name: 'profile'}">Profile</router-link></li>
           <li><button class="logout" @click="logout">Logout</button></li>
-          </span>
-          <span v-else>
+          <!-- </span> -->
+          <!-- <span v-else> -->
             <li> <router-link :to="{name: 'login'}">Login</router-link></li>
           <li> <router-link :to="{name: 'signup'}">Sign Up</router-link></li>
-          </span>
+          <!-- </span> -->
           
 
 
