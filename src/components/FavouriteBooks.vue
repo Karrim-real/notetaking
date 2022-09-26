@@ -77,6 +77,7 @@ export default {
         } catch (error) {
           throw error.message
         }
+        
         item.id =  !item.id
     },
 

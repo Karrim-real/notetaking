@@ -55,10 +55,12 @@ export default {
                 try {
                    await axios.post(this.authurl+'/auth/login', this.formdatas)
                 .then(response =>{ 
-                        if(response.data.statusCode === 200){
+                        if(response.status === 200){
+                        // console.log(response.data.authorization);
+
+                            sessionStorage.setItem('authorization_key', response.data.authorization.token)
                             this.$router.push({name: 'favourites'});
-                            console.log(response.data);
-                            // this.authentication.push({data : response})
+                            // console.log(sessionStorage.getItem('authorization_key'));
                         }
                     })
                 .catch(err => this.errors = err.response.data.message)
@@ -69,6 +71,9 @@ export default {
             }
            
         }
+    },
+    mounted(){
+        sessionStorage.clear()
     }
 }
 </script>

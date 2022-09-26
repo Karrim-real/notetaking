@@ -3,6 +3,9 @@
     <!-- <h1>Book Details page </h1> -->
     <div class="card-bdy  " v-if="book">
       <!-- {{book}} -->
+      <h3 v-if="successmsg">{{successmsg}}</h3>
+      <h3 v-if="errors" class="error">{{errors}}</h3>
+
       <div class="card-imag">
         <img :src="book.image" class="imageResize" :alt="book.title" srcset="">
       </div>
@@ -50,16 +53,21 @@ export default {
         return {
           
           url: process.env.VUE_APP_BASEURL,
-          book : null
+          book : null,
+          favurl: process.env.VUE_APP_AUTHURL,
+          errors: '',
+          successmsg: ''
+
         }
     }, 
     methods: {
        async BookFavourite(item){
         console.log(item.id);
         try {
-            await axios.put(this.url+'/'+item.id, {
-              isFavourite : !item.isFavourite
-            }).then(res => console.log(res))
+           await axios.post(this.favurl+"/favouritebook",{
+            'book_id': this.book_id = item.id
+           }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : console.log(this.errors = res.data.message))
+            .catch(err => console.log(err))
         } catch (error) {
           throw error.message
         }

@@ -69,6 +69,8 @@ export default {
                 await axios.post(this.authurl+'/auth/signup', this.signupData)
                 .then(response =>{
                     if(response.status === 200){
+                            sessionStorage.setItem('authorization_key', response.data.authorization.token)
+                            sessionStorage.setItem('authorization_type', response.data.authorization.type)
                         this.$router.push({name : 'home'})
                     }
                 })
@@ -78,6 +80,9 @@ export default {
                 console.log(error);
             }
         }
+    },
+    mounted(){
+        sessionStorage.clear()
     }
 }
 </script>

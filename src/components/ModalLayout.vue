@@ -33,7 +33,7 @@
                 <button type="button" class="add-favourite" @click="BookFavourite(item)">Add to Favourite</button>
                   </span>
                   <span v-else>
-                      <button type="button" class="remove-favourite" @click="BookFavourite(item)" >
+                      <button type="button" class="remove-favourite" @click="RemoveFavourite(item)" >
                   Remove from Favourite
                       </button>
                   </span>
@@ -51,6 +51,7 @@
 
 <script>
 const axios = require('axios')
+import getAuth from '../services/Auth'
 export default {
   name: 'ModalLayout',
   data() {
@@ -61,7 +62,8 @@ export default {
       successmsg : '',
 
       url: process.env.VUE_APP_BASEURL,
-      favurl: process.env.VUE_APP_AUTHURL
+      favurl: process.env.VUE_APP_AUTHURL,
+      getauth: getAuth(),
     }
   },
   mounted(){
@@ -69,7 +71,7 @@ export default {
     // fetch(this.url).then(res =>{
     // res.json().then(data => this.books = data.data)
     // }).catch(err => console.log(err))
-
+  console.log(this.getauth);
     axios.get(this.url).then((response) => {
         console.log(this.books = response.data.data);
       })
@@ -88,8 +90,22 @@ export default {
           throw error.message
         }
         console.log(this.book_id);
-        // item.isFavourite =  !item.isFavourite
+        item.isFavourite =  !item.isFavourite
     },
+
+    async RemoveFavourite(item){
+        // this.removeBkid = 29;
+        try {
+            await axios.delete(this.favurl+'/favourite/'+item.id)
+            .then(res => item.id =  !res.id)
+            .catch(err => console.log(err))
+        } catch (error) {
+          throw error.message
+        }
+        
+        item.isFavourite = true
+    },
+    
   
    
   }
