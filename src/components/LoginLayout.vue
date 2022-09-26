@@ -39,7 +39,7 @@ export default {
                 password: '',
             },
             errors : '',
-            authurl: process.env.VUE_APP_AUTHURL,
+            url: process.env.VUE_APP_BASEURL,
             authentication: ''
 
         }
@@ -53,7 +53,7 @@ export default {
                this.errors = 'Please Enter Username or Password';
             }else{
                 try {
-                   await axios.post(this.authurl+'/auth/login', this.formdatas)
+                   await axios.post(this.url+'/auth/login', this.formdatas)
                 .then(response =>{ 
                         if(response.status === 200){
                         // console.log(response.data.authorization);

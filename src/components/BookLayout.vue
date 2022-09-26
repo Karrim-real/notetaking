@@ -54,7 +54,6 @@ export default {
           
           url: process.env.VUE_APP_BASEURL,
           book : null,
-          favurl: process.env.VUE_APP_AUTHURL,
           errors: '',
           successmsg: ''
 
@@ -64,7 +63,7 @@ export default {
        async BookFavourite(item){
         console.log(item.id);
         try {
-           await axios.post(this.favurl+"/favouritebook",{
+           await axios.post(this.url+"/favouritebook",{
             'book_id': this.book_id = item.id
            }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : console.log(this.errors = res.data.message))
             .catch(err => console.log(err))
@@ -80,7 +79,7 @@ export default {
 
       //Using Axios
       try {
-          axios.get(this.url+'/'+this.id)
+          axios.get(this.url+'/book/'+this.id)
           .then(res => this.book = res.data.data)
           .catch(err => err.message)
       } catch (error) {
@@ -91,9 +90,7 @@ export default {
       // .then(result => this.book = result.data))
       // .catch(err => console.log(err))
     },
-    computed:{
-      
-    }
+    
 }
 </script>
 

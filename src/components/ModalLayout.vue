@@ -62,7 +62,7 @@ export default {
       successmsg : '',
 
       url: process.env.VUE_APP_BASEURL,
-      favurl: process.env.VUE_APP_AUTHURL,
+      // favurl: process.env.VUE_APP_AUTHURL,
       getauth: getAuth(),
     }
   },
@@ -72,7 +72,7 @@ export default {
     // res.json().then(data => this.books = data.data)
     // }).catch(err => console.log(err))
   console.log(this.getauth);
-    axios.get(this.url).then((response) => {
+    axios.get(this.url+'/book').then((response) => {
         console.log(this.books = response.data.data);
       })
     // console.log(this.books);
@@ -82,7 +82,7 @@ export default {
         // console.log(this.favurl+"/favouritebook");
 
         try {
-           await axios.post(this.favurl+"/favouritebook",{
+           await axios.post(this.url+"/favouritebook",{
             'book_id': this.book_id = item.id
            }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : console.log(this.errors = res.data.message))
             .catch(err => console.log(err))
@@ -96,7 +96,7 @@ export default {
     async RemoveFavourite(item){
         // this.removeBkid = 29;
         try {
-            await axios.delete(this.favurl+'/favourite/'+item.id)
+            await axios.delete(this.url+'/favourite/'+item.id)
             .then(res => item.id =  !res.id)
             .catch(err => console.log(err))
         } catch (error) {

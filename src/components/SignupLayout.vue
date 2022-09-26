@@ -55,7 +55,7 @@ export default {
             password_confirmation : ''
 
             },
-            authurl: process.env.VUE_APP_AUTHURL,
+            url: process.env.VUE_APP_BASEURL,
             errors: '',
             
         }
@@ -66,11 +66,10 @@ export default {
             // console.log(this.authurl);
             // console.log('Register Button Click');
             try {
-                await axios.post(this.authurl+'/auth/signup', this.signupData)
+                await axios.post(this.url+'/auth/signup', this.signupData)
                 .then(response =>{
                     if(response.status === 200){
                             sessionStorage.setItem('authorization_key', response.data.authorization.token)
-                            sessionStorage.setItem('authorization_type', response.data.authorization.type)
                         this.$router.push({name : 'home'})
                     }
                 })

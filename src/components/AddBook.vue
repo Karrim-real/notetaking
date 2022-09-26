@@ -83,7 +83,9 @@ export default {
                 book_page: '',
                 // book_image : '',
                 book_status: '',
-            }
+            },
+            url: process.env.VUE_APP_BASEURL,
+            
         }
     },
     methods: {
@@ -104,7 +106,7 @@ export default {
                 }
 
             try {
-                await axios.post('http://localhost:8000/api/book', {
+                await axios.post(this.url+'/book', {
                     title: this.formDatas.book_name,
                     author: this.formDatas.book_author,
                     pages: this.formDatas.book_page,

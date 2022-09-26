@@ -15,7 +15,11 @@ export default {
     data(){
         return {
             name: 'Akinleuoo',
-            url: process.env.VUE_APP_AUTHURL,
+           
+            url: process.env.VUE_APP_BASEURL,
+
+
+            
         }
     },
    async mounted(){

@@ -48,7 +48,8 @@ export default {
         return{
             favouriteBook : [],
             removeBkid: '',
-            url: process.env.VUE_APP_AUTHURL,
+            url: process.env.VUE_APP_BASEURL,
+            
         }
     },
     components:{
@@ -77,7 +78,7 @@ export default {
         } catch (error) {
           throw error.message
         }
-        
+
         item.id =  !item.id
     },
 
