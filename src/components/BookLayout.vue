@@ -37,7 +37,7 @@
       </div>
     </div>
     <div v-else>
-      <h2>Loaing book ...</h2>
+      <h4>Loaing book ...</h4>
     </div>
     <!-- {{book}} -->
 

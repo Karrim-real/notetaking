@@ -30,6 +30,7 @@
 
 <script>
 import axios from 'axios';
+import Auth from '../services/Auth'
 export default {
     data(){
         return {
@@ -40,7 +41,6 @@ export default {
             },
             errors : '',
             url: process.env.VUE_APP_BASEURL,
-            authentication: ''
 
         }
     },
@@ -56,10 +56,11 @@ export default {
                    await axios.post(this.url+'/auth/login', this.formdatas)
                 .then(response =>{ 
                         if(response.status === 200){
-                        // console.log(response.data.authorization);
-
-                            sessionStorage.setItem('authorization_key', response.data.authorization.token)
-                            this.$router.push({name: 'favourites'});
+                        // console.log(response.data.authorization.token);
+                        // console.log(response.data.data);
+                        Auth.login(response.data.authorization.token, response.data.data)
+                            // sessionStorage.setItem('authorization_key', response.data.authorization.token)
+                            this.$router.push({name: 'home'});
                             // console.log(sessionStorage.getItem('authorization_key'));
                         }
                     })

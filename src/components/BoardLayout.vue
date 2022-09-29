@@ -8,11 +8,11 @@
           
           <li> <router-link :to="{name: 'about'}">About Us</router-link></li>
           
-          <!-- <span v-if="checkAuth"> -->
+          <!-- <span v-if="loggedUser"> -->
             <li><router-link :to="{name: 'addbook'}">Add Book</router-link> </li>
           <li><router-link :to="{name: 'favourites'}">Favourite Books</router-link> </li>
           <li> <router-link :to="{name: 'profile'}">Profile</router-link></li>
-          <!-- <li><button class="logout" @click="logout">Logout</button></li> -->
+          <li><button class="logout" @click="logout">Logout</button></li>
           <!-- </span> -->
           <!-- <span v-else> -->
             <li> <router-link :to="{name: 'login'}">Login</router-link></li>
@@ -30,27 +30,24 @@
 
 <script>
 import axios from 'axios';
-import getAuth from '@/services/Auth';
 export default {
   name:'BoardLayout',
     data(){
         return {
             title : 'Amachi Book Store',
             url: process.env.VUE_APP_AUTHURL,
+            // loggedUser: ''
             
             // checkAuth: getAuth(),
         }
     },
   methods:{
     async logout(){
-      const header = {
-        'Authorization' : 'Bearer '+getAuth()["key"]
-      }
+      
       try {
-         await axios.get(this.url+'/users/logout',{headers:header}).then(res => {
+         await axios.get(this.url+'/users/logout').then(res => {
           // console.log(res.status);
           if(res.status === 200){
-          sessionStorage.clear()
           this.$router.push({name: "home"})
           }
         
@@ -62,13 +59,11 @@ export default {
     }
   },
   mounted(){
-    // this.checkAuth = getAuth()
+    // console.log(this.auth.user);
+
   },
   computed:{
-    checkAuth(){
-      console.log(getAuth()['key']);
-      return getAuth();
-    }
+    
   }
 
 }

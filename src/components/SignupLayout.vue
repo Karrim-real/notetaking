@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
     data(){
         return {
@@ -62,26 +62,27 @@ export default {
     },
     methods: {
         async Register(){
-            console.log(this.signupData);
+            console.log('User Datas',this.signupData);
             // console.log(this.authurl);
             // console.log('Register Button Click');
-            try {
-                await axios.post(this.url+'/auth/signup', this.signupData)
-                .then(response =>{
-                    if(response.status === 200){
-                            sessionStorage.setItem('authorization_key', response.data.authorization.token)
-                        this.$router.push({name : 'home'})
-                    }
-                })
-                .catch(err => this.errors = err.response.data.errors)
+            this.$store.dispatch('register', this.signupData)
+            // try {
+            //     await axios.post(this.url+'/auth/signup', this.signupData)
+            //     .then(response =>{
+            //         if(response.status === 200){
+            //                 sessionStorage.setItem('authorization_key', response.data.authorization.token)
+            //             this.$router.push({name : 'home'})
+            //         }
+            //     })
+            //     .catch(err => this.errors = err.response.data.errors)
                 
-            } catch (error) {
-                console.log(error);
-            }
+            // } catch (error) {
+            //     console.log(error);
+            // }
         }
     },
     mounted(){
-        sessionStorage.clear()
+        // sessionStorage.clear()
     }
 }
 </script>

@@ -44,34 +44,30 @@
       </div>
     </div>
     <div v-else>
-      <h2>No Book Avaialble</h2>
+      <h2>Loading Books</h2>
     </div>
   </div>
 </template>
 
 <script>
 const axios = require('axios')
-import getAuth from '../services/Auth'
+// import getAuth from '../services/Auth'
 export default {
   name: 'ModalLayout',
   data() {
     return {
-      books: [],
+      books: null,
       book_id : '',
       errors: '',
       successmsg : '',
 
       url: process.env.VUE_APP_BASEURL,
       // favurl: process.env.VUE_APP_AUTHURL,
-      getauth: getAuth(),
+      // getauth: getAuth(),
     }
   },
   mounted(){
-    console.log(process.env.VUE_APP_BASEURL);
-    // fetch(this.url).then(res =>{
-    // res.json().then(data => this.books = data.data)
-    // }).catch(err => console.log(err))
-  console.log(this.getauth);
+    
     axios.get(this.url+'/book').then((response) => {
         console.log(this.books = response.data.data);
       })

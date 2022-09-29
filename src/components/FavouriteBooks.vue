@@ -35,7 +35,7 @@
       </div>
     </div>
     <div v-else>
-      <h2>No Book Avaialble</h2>
+      <h4>Loading Favourite Books ...</h4>
     </div>
   </div>
 </template>
@@ -46,9 +46,10 @@ export default {
     name: 'FavouriteLayout',
     data(){
         return{
-            favouriteBook : [],
+            favouriteBook : null,
             removeBkid: '',
             url: process.env.VUE_APP_BASEURL,
+            isLoading : true
             
         }
     },
@@ -73,7 +74,7 @@ export default {
         // this.removeBkid = 29;
         try {
             await axios.delete(this.url+'/favourite/'+item.id)
-            .then(res => item.id =  !res.id)
+            .then(res => item.id =  !res.id )
             .catch(err => console.log(err))
         } catch (error) {
           throw error.message
