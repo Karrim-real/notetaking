@@ -2,7 +2,7 @@
   <!-- <main> -->
     <div class="myform">
         <div class="login-text">
-            <h4 v-if="errors"> {{errors}} </h4>
+            <h4 v-if="errors" class="myerrors"> {{errors}} </h4>
             <h4 v-else>Plese enter email and password </h4>
         </div>
         
@@ -22,6 +22,11 @@
                 </div>
             </form>
         </div>
+        <router-link :to="{name: 'signup'}">Dont have account, Register</router-link>
+        <br>
+        <br>
+        <br>
+
     </div>
   
   
@@ -29,8 +34,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Auth from '../services/Auth'
+
 export default {
     data(){
         return {
@@ -48,26 +52,37 @@ export default {
        async Login(){
             console.log('Welcome to password');
             // this.formdatas.push(this.username, this.password)
-            console.log(this.formdatas);
+            // console.log(this.formdatas);
             if(this.formdatas.email === '' || this.formdatas.password === ''){
-               this.errors = 'Please Enter Username or Password';
+               this.errors = 'Please enter Username and Password';
             }else{
-                try {
-                   await axios.post(this.url+'/auth/login', this.formdatas)
-                .then(response =>{ 
-                        if(response.status === 200){
-                        // console.log(response.data.authorization.token);
-                        // console.log(response.data.data);
-                        Auth.login(response.data.authorization.token, response.data.data)
-                            // sessionStorage.setItem('authorization_key', response.data.authorization.token)
-                            this.$router.push({name: 'home'});
-                            // console.log(sessionStorage.getItem('authorization_key'));
-                        }
-                    })
-                .catch(err => this.errors = err.response.data.message)
-                } catch (error) {
-                    console.log(error);
-                }
+
+                // try {
+                    this.$store.dispatch('login', this.formdatas).then(()=> {
+                        
+                        this.$router.push({'name': 'favourites'})
+                    }).catch(err => {
+                        this.errors = err.response.data.message
+                        })
+                // } catch (error) {
+                //     console.log(error);
+                // }
+                // try {
+                //    await axios.post(this.url+'/auth/login', this.formdatas)
+                // .then(response =>{ 
+                //         if(response.status === 200){
+                //         // console.log(response.data.authorization.token);
+                //         // console.log(response.data.data);
+                //         Auth.login(response.data.authorization.token, response.data.data)
+                //             // sessionStorage.setItem('authorization_key', response.data.authorization.token)
+                //             this.$router.push({name: 'home'});
+                //             // console.log(sessionStorage.getItem('authorization_key'));
+                //         }
+                //     })
+                // .catch(err => this.errors = err.response.data.message)
+                // } catch (error) {
+                //     console.log(error);
+                // }
                 
             }
            
@@ -81,4 +96,9 @@ export default {
 
 <style>
 @import url('../assets/css/login.css');
+.myerrors{
+    color: red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+}
 </style>

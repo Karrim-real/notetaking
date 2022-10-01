@@ -30,6 +30,9 @@ const routes = [
         path: '/favourites', 
         name:'favourites', 
         component: FavouriteLayout,
+        meta : {
+            requiresAuth: true
+        }
         
     },
     {
@@ -65,16 +68,13 @@ const router = createRouter({
 
 })
 
-// router.beforeEach((to, from, next)=>{
-//     if(to.matched.some(record => record,meta.requiresAuth)){
-//         if(Auth.check()){
-//             next()
-//             return;
-//         }
-//         else{
-//             router.push({name: 'login'})
-//         }
-//     }
-// })
+router.beforeEach((to, from, next)=>{
+    const loggedIn = localStorage.getItem('user')
+    if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn){
+            router.push({name: 'login'})
+    }else{
+        next()
+    }
+})
 
 export default router

@@ -8,18 +8,18 @@
           
           <li> <router-link :to="{name: 'about'}">About Us</router-link></li>
           
-          <!-- <span v-if="loggedUser"> -->
+          <span v-if="loggedIn">
             <li><router-link :to="{name: 'addbook'}">Add Book</router-link> </li>
           <li><router-link :to="{name: 'favourites'}">Favourite Books</router-link> </li>
           <li> <router-link :to="{name: 'profile'}">Profile</router-link></li>
-          <li><button class="logout" @click="logout">Logout</button></li>
-          <!-- </span> -->
-          <!-- <span v-else> -->
+          <li><button class="logout"  @click="logout">Logout</button></li>
+          </span>
+          <span v-else>
             <li> <router-link :to="{name: 'login'}">Login</router-link></li>
           <li> <router-link :to="{name: 'signup'}">Sign Up</router-link></li>
-          <!-- </span> -->
+          </span>
           
-
+<!-- {{loggedIn}} -->
 
         </ul>
       </nav>
@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import {authComputed} from '../store/helpers'
 export default {
   name:'BoardLayout',
     data(){
@@ -42,28 +43,23 @@ export default {
         }
     },
   methods:{
-    async logout(){
+     logout(){
+      this.$store.dispatch('logout')
+        // console.log(data);
+      this.$router.push({name : 'login'})
       
-      try {
-         await axios.get(this.url+'/users/logout').then(res => {
-          // console.log(res.status);
-          if(res.status === 200){
-          this.$router.push({name: "home"})
-          }
-        
-      }).catch(err => console.log(err))
-      } catch (error) {
-        console.log(error);
-      }
-     
+      
     }
   },
   mounted(){
-    // console.log(this.auth.user);
+    let user = localStorage.getItem('user')
+    let userJson = JSON.parse(user)
+    console.log('Logged In User',userJson);
 
   },
   computed:{
-    
+    ...authComputed
+
   }
 
 }

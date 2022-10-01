@@ -3,8 +3,8 @@
     <div class="myform">
         <div class="login-text">
             <h2 v-if="errors">
-                <ul v-for="error in errors" :key="error.name">
-                    <li>{{error}}</li>
+                <ul v-for="(error, index ) in errors" :key="index">
+                    <li class="error">{{error}}</li>
                 </ul>
             </h2>
             <h2 v-else>Creat an Account</h2>
@@ -24,18 +24,22 @@
                 
                  <div class="password">
                     <label for="password">Password</label>
-                    <input type="password" class="password" name="password" v-model="signupData.password">
+                    <input type="password" class="password" placeholder="Enter your password" name="password" v-model="signupData.password">
                 </div>
 
                  <div class="password">
                     <label for="password"> Confrim Password</label>
-                    <input type="password" class="password" name="password_confirmation" v-model="signupData.password_confirmation">
+                    <input type="password" class="password" placeholder="confirm your password" name="password_confirmation" v-model="signupData.password_confirmation">
                 </div>
                 <div class="submitbtn">
                     <button class="login-button" type="submit">Register</button>
                 </div>
             </form>
         </div>
+         <router-link :to="{name: 'login'}">Already have an account, Login</router-link>
+        <br>
+        <br>
+        <br>
     </div>
   
  
@@ -56,29 +60,16 @@ export default {
 
             },
             url: process.env.VUE_APP_BASEURL,
-            errors: '',
+            errors: null,
             
         }
     },
     methods: {
-        async Register(){
-            console.log('User Datas',this.signupData);
-            // console.log(this.authurl);
-            // console.log('Register Button Click');
-            this.$store.dispatch('register', this.signupData)
-            // try {
-            //     await axios.post(this.url+'/auth/signup', this.signupData)
-            //     .then(response =>{
-            //         if(response.status === 200){
-            //                 sessionStorage.setItem('authorization_key', response.data.authorization.token)
-            //             this.$router.push({name : 'home'})
-            //         }
-            //     })
-            //     .catch(err => this.errors = err.response.data.errors)
-                
-            // } catch (error) {
-            //     console.log(error);
-            // }
+       async  Register(){
+            
+           await this.$store.dispatch('register', this.signupData).then(()=>{
+            this.$router.push({name:'home'})
+           }).catch(err => this.errors = err.response.data.errors)
         }
     },
     mounted(){
@@ -89,4 +80,8 @@ export default {
 
 <style>
 @import url('../assets/css/signup.css');
+.error{
+    color: tomato;
+    font-size: 14px;
+}
 </style>

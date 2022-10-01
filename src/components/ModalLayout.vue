@@ -69,7 +69,7 @@ export default {
   mounted(){
     
     axios.get(this.url+'/book').then((response) => {
-        console.log(this.books = response.data.data);
+        this.books = response.data.data
       })
     // console.log(this.books);
   },
