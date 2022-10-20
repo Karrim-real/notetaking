@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import ModalLayout from '../components/ModalLayout.vue'
 import AddBook from '../components/AddBook.vue'
 import BookLayout from '../components/BookLayout'
@@ -12,67 +12,73 @@ import ProfileLayout from '../components/ProfileLayout'
 
 const routes = [
     {
-        path: '/', 
-        name: 'home', 
+        path: '/',
+        name: 'home',
         component: ModalLayout
     },
     {
         path: '/addbook',
-         name:'addbook',
-          component: AddBook
+        name: 'addbook',
+        component: AddBook,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/about',
-         name:'about',
+        name: 'about',
         component: AboutLayout
     },
     {
-        path: '/favourites', 
-        name:'favourites', 
+        path: '/favourites',
+        name: 'favourites',
         component: FavouriteLayout,
-        meta : {
+        meta: {
             requiresAuth: true
         }
-        
+
     },
     {
-        path: '/book/:id', 
-        name: 'BookLayout', 
-        component: BookLayout, 
+        path: '/book/:id',
+        name: 'BookLayout',
+        component: BookLayout,
         props: true
     },
     {
         path: '/signup',
-         name:'signup',
-          component: SignupLayout
+        name: 'signup',
+        component: SignupLayout
     },
     {
-        path: '/login', 
-        name:'login',
-         component: LoginLayout
-        },
+        path: '/login',
+        name: 'login',
+        component: LoginLayout
+    },
     {
         path: '/profile',
-         name:'profile', 
-         component: ProfileLayout
+        name: 'profile',
+        component: ProfileLayout,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/*',
-         name: 'NotFound', 
-         component: NotFound
+        name: 'NotFound',
+        component: NotFound
     },
 ]
 const router = createRouter({
-    history:createWebHistory(),
+    history: createWebHistory(),
     routes
 
 })
 
-router.beforeEach((to, from, next)=>{
+router.beforeEach((to, from, next) => {
     const loggedIn = localStorage.getItem('user')
-    if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn){
-            router.push({name: 'login'})
-    }else{
+    if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+        router.push({ name: 'login' })
+    } else {
         next()
     }
 })

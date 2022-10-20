@@ -39,6 +39,12 @@ export default createStore({
         commit('SET_USER_DATA', data)
       })
     },
+
+    async profile() {
+      return await axios.get(url+'/users/profile').then(({data}) => {
+        console.log(data);
+      }).catch((err) => console.log(err))
+    },
     async logout({ commit }) {
       return await axios.get(url+'/users/logout').then(() => {
         commit('CLEAR_USER_DATA')

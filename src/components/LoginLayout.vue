@@ -50,46 +50,26 @@ export default {
     },
     methods: {
        async Login(){
-            console.log('Welcome to password');
-            // this.formdatas.push(this.username, this.password)
-            // console.log(this.formdatas);
+            
             if(this.formdatas.email === '' || this.formdatas.password === ''){
                this.errors = 'Please enter Username and Password';
             }else{
 
-                // try {
+            
                     this.$store.dispatch('login', this.formdatas).then(()=> {
                         
                         this.$router.push({'name': 'favourites'})
                     }).catch(err => {
                         this.errors = err.response.data.message
                         })
-                // } catch (error) {
-                //     console.log(error);
-                // }
-                // try {
-                //    await axios.post(this.url+'/auth/login', this.formdatas)
-                // .then(response =>{ 
-                //         if(response.status === 200){
-                //         // console.log(response.data.authorization.token);
-                //         // console.log(response.data.data);
-                //         Auth.login(response.data.authorization.token, response.data.data)
-                //             // sessionStorage.setItem('authorization_key', response.data.authorization.token)
-                //             this.$router.push({name: 'home'});
-                //             // console.log(sessionStorage.getItem('authorization_key'));
-                //         }
-                //     })
-                // .catch(err => this.errors = err.response.data.message)
-                // } catch (error) {
-                //     console.log(error);
-                // }
+            
                 
             }
            
         }
     },
     mounted(){
-        sessionStorage.clear()
+       localStorage.clear()
     }
 }
 </script>
