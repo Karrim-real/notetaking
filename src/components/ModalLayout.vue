@@ -58,8 +58,10 @@ export default {
     return {
       books: null,
       book_id : '',
+      user_id : '',
       errors: '',
       successmsg : '',
+      userJson: null,
 
       url: process.env.VUE_APP_BASEURL,
       // favurl: process.env.VUE_APP_AUTHURL,
@@ -71,7 +73,9 @@ export default {
     axios.get(this.url+'/book').then((response) => {
         this.books = response.data.data
       })
-    // console.log(this.books);
+      let user = localStorage.getItem('user')
+        this.userJson = JSON.parse(user)
+      // console.log('User details',this.userJson)
   },
   methods: {
    async BookFavourite(item){
@@ -79,13 +83,14 @@ export default {
 
         try {
            await axios.post(this.url+"/favouritebook",{
-            'book_id': this.book_id = item.id
-           }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : console.log(this.errors = res.data.message))
+            'book_id': this.book_id = item.id,
+            'user_id': this.user_id = this.userJson.user.id,
+           }).then(res => res.data.status === 'success' ? this.successmsg = res.data.message : this.errors = res.data.message)
             .catch(err => console.log(err))
         } catch (error) {
           throw error.message
         }
-        console.log(this.book_id);
+        
         item.isFavourite =  !item.isFavourite
     },
 
